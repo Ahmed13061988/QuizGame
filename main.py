@@ -1,9 +1,6 @@
 import time
 import turtle
 import pandas
-import csv
-
-import pandas as pd
 
 score = 0
 is_game_on = True
@@ -15,6 +12,7 @@ while is_game_on:
     image = "blank_states_img.gif"
     screen.addshape(image)
     turtle.shape(image)
+    screen.tracer(6)
     data = pandas.read_csv("50_states.csv")
     states = data["state"].tolist()
     answer = turtle.textinput(title=f"{score}/50Guess The State", prompt="What's another state's name?").capitalize()
@@ -22,10 +20,17 @@ while is_game_on:
         if answer in answers:
             print("you got that already")
         else:
+            state_data = data[data.state == answer]
+            t = turtle.Turtle()
             answers.append(answer)
             score += 1
+            t.hideturtle()
+            t.penup()
+            t.goto(int(state_data.x), int(state_data.y))
+            t.write(answer, align="center")
     else:
         is_game_on = False
+
         print("There is no state like that, you lose!")
 
 # states = data[data.state == answer]
