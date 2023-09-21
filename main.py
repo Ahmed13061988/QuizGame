@@ -31,7 +31,8 @@ while is_game_on:
     elif answer == "Exit":
         is_game_on = False
         print("you are leaving")
-        states_to_learn = list(set(states).difference(answers))
+        # states_to_learn = list(set(states).difference(answers))
+        states_to_learn = [state for state in states if state not in answers]
         states_dict = {
             "state": states_to_learn
         }
